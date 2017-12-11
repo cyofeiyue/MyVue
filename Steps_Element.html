@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <style>
+        .step01,.step02,.step03,.step04{
+            width:100%;
+            height:100%;
+            display: inline-block;
+            background-repeat: no-repeat;
+            background-image: url("assets/imgs/arrow_down_circle.png");
+            background-size: cover;
+        }
+
+        .el-step__icon.is-text {
+            border-radius: 50%;
+            border: 0px solid;
+            border-color: inherit;
+        }
+
+        .shopCard_step .el-step__head.is-text{    border-style: hidden;background-color:transparent !important;}
+        .shopCard_step .el-step__head.is-text.is-finish .step02{background-image: url("assets/imgs/demo.png");}
+        .shopCard_step .el-step__head.is-text.is-finish .step03{background-image: url("assets/imgs/demo.png");}
+        .shopCard_step .el-step__head.is-text.is-finish .step04{background-image: url("assets/imgs/demo.png");}
+
+        .el-step__head:hover {
+            color: #67c23a;
+            border-color: #67c23a;
+        }
+
+        .el-col-offset-2 {
+            margin-left: 5.6%;
+        }
+
+        .el-col-1 {
+            width: 7.8%;
+        }
+        .text {
+            font-size: 7px;
+        }
+        .item {
+            margin-bottom: 9px;
+        }
+        .clearfix:before,
+        .clearfix:after {
+            display: table;
+            content: "";
+        }
+        .clearfix:after {
+            clear: both
+        }
+
+        .box-card {
+            width: 80%;
+        }
+
+        .el-card__header {
+            padding: 1px 10px;
+            border-bottom: 1px solid #e6ebf5;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="app">
+        <el-card class="box-card">
+            <div slot="header" class="clearfix">
+                <span>Line-1 view panel</span>
+
+            </div>
+            <div v-for="o in 4" :key="o" class="text item">
+                {{'列表内容 ' + o }}
+            </div>
+        </el-card>
+        <div style="padding: 10px">
+
+        </div>
+        <div v-for="item in aList">
+            {{item.lineName}}
+            <el-row>
+                <el-col :span="1" v-for="(o, index) in item.lines" :offset="2" :key="index">
+                    <div>
+                        <div style="float: left" v-if="o.step === 'finishing'">
+                            <img src="assets/imgs/勾选.png" width="30">
+                        </div>
+                        <div style="float: left" v-else>
+                            <img src="assets/imgs/空白.png" width="30">
+                        </div>
+                        <div v-show="o.step === 'finishing'">
+                            <span style="font-size: xx-small">{{o.step}}</span>
+                            <div style="font-size: xx-small">{{o.quantity1}}/{{o.quantity2}}</div>
+                        </div>
+                        <div style="margin-top: -2px; clear: both" v-show="o.step === 'finishing'">
+                            <a style="border-left: 2px solid #409EFF;margin-left: 10px;"></a>
+                        </div>
+                    </div>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-col el-col :span="16">
+                    <el-steps :space="400" :active="5"  :align-center="true" :center="true">
+                        <el-step title="" @click.native="on_click(1)">
+                            <i class="step01" slot="icon"></i>
+                        </el-step>
+                        <el-step title="" @click.native="on_click(2)" >
+                            <i class="step02" slot="icon"></i>
+                        </el-step>
+                        <el-step title="" @click.native="on_click(3)">
+                            <i class="step03" slot="icon"></i>
+                        </el-step>
+                        <el-step title="" @click.native="on_click(4)">
+                            <i class="step04" slot="icon"></i>
+                        </el-step>
+                        <el-step title="" @click.native="on_click(5)">
+                            <i class="step04" slot="icon"></i>
+                        </el-step>
+                    </el-steps>
+
+                    {{step}}
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-col :span="1" v-for="(o, index) in item.lines" :offset="2" :key="index">
+                    <div style="margin-top: -21px;" v-show="o.step === 'ongoing'">
+                        <a style="border-left: 2px solid #409EFF;margin-left: 10px;"></a>
+                    </div>
+                    <div style="float: left" v-if="o.step === 'ongoing'">
+                        <img src="assets/imgs/右箭头.png" width="30">
+                    </div>
+                    <div style="float: left" v-else>
+                        <img src="assets/imgs/空白.png" width="30">
+                    </div>
+                    <div v-show="o.step === 'ongoing'">
+                        <span style="font-size: xx-small">{{o.step}}</span>
+                        <div style="font-size: xx-small">{{o.quantity1}}/{{o.quantity2}}</div>
+                    </div>
+
+                </el-col>
+            </el-row>
+        </div>
+
+
+    </div>
+<!-- 先引入 Vue -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- 引入组件库 -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="libs/jquery-3.2.1.min.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                step:3,
+                aList:[]
+            },
+            mounted:function () {
+               this.$nextTick(function () {
+                   this.getLinePanelView();
+               })
+            },
+            methods:{
+                on_click:function (e) {
+                    this.step = e
+                    console.log(e)
+                },
+                getLinePanelView:function () {
+                    var _this = this;
+                    $.ajax({
+                        url:'LineViewPanel.json',
+                        type:'get',
+                        success:function (res) {
+                            //Vue.set('gridData', res.data.lists)
+                            _this.aList = res.data.lists
+                        },
+                        error:function (err) {
+
+                        }
+                    })
+                }
+            }
+        })
+    </script>
+
+</body>
+</html>

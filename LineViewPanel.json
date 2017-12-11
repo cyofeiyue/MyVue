@@ -1,0 +1,80 @@
+{
+  "status":true,
+  "msg":"成功取得数据",
+  "data": {
+    "lists": [
+      {
+        "id": "1",
+        "lineName": "Line1",
+        "lines": [
+          {
+            "name":"TG",
+            "step":"finishing",
+            "quantity1":"10",
+            "quantity2":"150"
+          },
+          {
+            "name":"HT",
+            "step":"ongoing",
+            "quantity1":"50",
+            "quantity2":"280"
+          },
+          {
+            "name":"SE",
+            "step":"finishing",
+            "quantity1":"100",
+            "quantity2":"150"
+          },
+          {
+            "name":"SE",
+            "step":"ongoing",
+            "quantity1":"150",
+            "quantity2":"150"
+          },
+          {
+            "name":"SE",
+            "step":"ongoing",
+            "quantity1":"150",
+            "quantity2":"200"
+          }
+        ]
+      },
+      {
+        "id": "1",
+        "lineName": "Line2",
+        "lines": [
+          {
+            "name":"TG",
+            "step":"ongoing",
+            "quantity1":"1",
+            "quantity2":"150"
+          },
+          {
+            "name":"HT",
+            "step":"finishing",
+            "quantity1":"3",
+            "quantity2":"280"
+          },
+          {
+            "name":"SE",
+            "step":"finishing",
+            "quantity1":"4",
+            "quantity2":"150"
+          },
+          {
+            "name":"SE",
+            "step":"ongoing",
+            "quantity1":"4",
+            "quantity2":"150"
+          },
+          {
+            "name":"SE",
+            "step":"ongoing",
+            "quantity1":"4",
+            "quantity2":"150"
+          }
+        ]
+      }
+    ]
+  }
+}
