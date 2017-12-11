@@ -104,23 +104,14 @@
             <el-row>
                 <el-col el-col :span="16">
                     <el-steps :space="400" :active="5"  :align-center="true" :center="true">
-                        <el-step title="" @click.native="on_click(1)">
+                        <el-step
+                                title=""
+                                @click.native="on_click(index + 1)"
+                                v-for="(o,index) in item.lines"
+                                :key="index">
                             <i class="step01" slot="icon"></i>
                         </el-step>
-                        <el-step title="" @click.native="on_click(2)" >
-                            <i class="step02" slot="icon"></i>
-                        </el-step>
-                        <el-step title="" @click.native="on_click(3)">
-                            <i class="step03" slot="icon"></i>
-                        </el-step>
-                        <el-step title="" @click.native="on_click(4)">
-                            <i class="step04" slot="icon"></i>
-                        </el-step>
-                        <el-step title="" @click.native="on_click(5)">
-                            <i class="step04" slot="icon"></i>
-                        </el-step>
                     </el-steps>
-
                     {{step}}
                 </el-col>
             </el-row>
